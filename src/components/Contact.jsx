@@ -1,0 +1,3 @@
+import { ArrowUpRight } from 'lucide-react';
+import { profile } from '../data/profile';
+export default function Contact(){return <section className="contact section" id="contact" aria-labelledby="contact-title"><div className="section-header mono"><p>06 / CONTACT</p><span>START A CONVERSATION</span></div><div className="contact-content"><p className="muted-label mono">HAVE SOMETHING IN MIND?</p><h2 id="contact-title">LET’S CREATE<br/>SOMETHING <span>GREAT.</span></h2>{profile.email?<a className="contact-button" href={`mailto:${profile.email}`}>LET’S TALK <ArrowUpRight/></a>:<a className="contact-button" href={profile.github} target="_blank" rel="noreferrer">CONNECT ON GITHUB <ArrowUpRight/></a>}</div></section>}

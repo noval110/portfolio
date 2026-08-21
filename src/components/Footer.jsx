@@ -1,0 +1,3 @@
+import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import { profile } from '../data/profile';
+export default function Footer({navigateTo}){const social=[['GITHUB',profile.github],['LINKEDIN',profile.linkedin],['EMAIL',profile.email?`mailto:${profile.email}`:'']].filter(([,href])=>href);return <footer className="footer section"><p className="mono">© 2026 {profile.name.toUpperCase()}</p><div className="socials">{social.map(([label,href])=><a key={label} href={href} target={href.startsWith('http')?'_blank':undefined} rel={href.startsWith('http')?'noreferrer':undefined}>{label}<ArrowUpRight size={14}/></a>)}</div><button className="back-top mono" onClick={()=>navigateTo('home')}>BACK TO TOP <ArrowUp size={14}/></button></footer>}

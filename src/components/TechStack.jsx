@@ -1,0 +1,4 @@
+import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+const tools=['React','JavaScript','Go','PHP','MySQL','HTML / CSS','Git'];
+export default function TechStack(){return <section className="stack section" id="stack" aria-labelledby="stack-title"><div className="section-header mono"><p>04 / STACK</p><span>TOOLS & TECHNOLOGIES</span></div><div className="stack-layout"><div><p className="muted-label mono">DAILY TOOLKIT</p><h2 id="stack-title">THINGS I<br/>WORK WITH.</h2></div><div className="skill-list">{tools.map((tool,index)=><motion.div className="skill-item" key={tool} initial={{opacity:0,x:25}} whileInView={{opacity:1,x:0}} viewport={{once:true}} transition={{duration:.5,delay:index*.04}}><span className="mono">0{index+1}</span><p>{tool}</p><ArrowUpRight size={20}/></motion.div>)}</div></div></section>}
