@@ -1,21 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion,useReducedMotion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { profile } from '../data/profile';
-import { useMousePosition } from '../hooks/useMousePosition';
-
-export default function Hero({ navigateTo }) {
-  const mouse=useMousePosition(); const reduce=useReducedMotion();
-  const parent={hidden:{},show:{transition:{staggerChildren:.12,delayChildren:.15}}};
-  const item={hidden:{opacity:0,y:reduce?0:55},show:{opacity:1,y:0,transition:{duration:.9,ease:[.22,1,.36,1]}}};
-  return <section className="hero section" id="home" aria-labelledby="hero-title" style={{'--mouse-x':`${mouse.x}px`,'--mouse-y':`${mouse.y}px`}}>
-    <div className="hero-grid" aria-hidden="true"/><div className="hero-glow" aria-hidden="true"/>
-    <div className="hero-meta mono"><span>PORTFOLIO / 2026</span><span>{profile.location.toUpperCase()}</span></div>
-    <motion.div className="hero-content" variants={parent} initial="hidden" animate="show">
-      <motion.p className="eyebrow mono" variants={item}><span className="status-dot"/>AVAILABLE FOR OPPORTUNITIES</motion.p>
-      <h1 className="hero-title" id="hero-title">
-        {['AKHMAD','NOVAL','ANNUR'].map((line,index)=><span className={`title-line ${index===1?'title-indent':''}`} key={line}><motion.span variants={item}>{line}</motion.span></span>)}
-      </h1>
-      <motion.div className="hero-bottom" variants={item}><div><p className="hero-role">{profile.role}</p><p className="hero-description">Building thoughtful digital experiences through code, design, and curiosity.</p></div><button className="explore-button mono" onClick={()=>navigateTo('about')}>SCROLL TO EXPLORE <ArrowDown size={17}/></button></motion.div>
-    </motion.div><span className="hero-number mono">01</span>
-  </section>;
-}
+import Portrait from './Portrait';
+export default function Hero({navigateTo}){const reduce=useReducedMotion();const reveal={hidden:{y:reduce?0:'110%'},show:{y:0,transition:{duration:.95,ease:[.22,1,.36,1]}}};return <section className="hero section" id="home" aria-labelledby="hero-title"><div className="hero-grid" aria-hidden="true"/><motion.div className="hero-kicker mono" initial={{opacity:0}} animate={{opacity:1}} transition={{duration:.7,delay:.1}}><span className="status-dot"/>AVAILABLE FOR OPPORTUNITIES</motion.div><div className="hero-composition"><motion.h1 id="hero-title" className="hero-title" initial="hidden" animate="show" transition={{staggerChildren:.12,delayChildren:.22}}><span className="title-line"><motion.span variants={reveal}>AKHMAD</motion.span></span><span className="title-line title-middle"><motion.span variants={reveal}>NOVAL</motion.span></span><span className="title-line title-last"><motion.span variants={reveal}>ANNUR</motion.span></span></motion.h1><Portrait src={profile.photo} alt="Portrait of Akhmad Noval Annur" variant="hero"/><motion.div className="hero-role" initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{duration:.75,delay:1.05,ease:[.22,1,.36,1]}}><p>INFORMATICS STUDENT<br/>&amp; WEB DEVELOPER</p></motion.div></div><motion.div className="hero-bottom" initial={{opacity:0}} animate={{opacity:1}} transition={{duration:.7,delay:1.2}}><p className="hero-description">Building thoughtful digital experiences<br/>through code, design, and curiosity.</p><button className="explore-button mono" onClick={()=>navigateTo('about')}>SCROLL TO EXPLORE <ArrowDown size={17}/></button></motion.div><div className="hero-meta mono"><span>01 / 2026</span><span>{profile.location.toUpperCase()}</span></div></section>}
