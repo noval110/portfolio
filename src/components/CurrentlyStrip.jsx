@@ -1,0 +1,2 @@
+const items=[['LEARNING','React / Go'],['BUILDING','Web Experiences'],['EXPLORING','Software Engineering'],['LOCATION','Purwokerto, Indonesia']];
+export default function CurrentlyStrip(){return <section className="currently section" aria-label="Currently"><p className="currently-title mono">CURRENTLY / 2026</p><div className="currently-grid">{items.map(([label,value])=><div key={label}><span className="mono">{label}</span><p>{value}</p></div>)}</div></section>}

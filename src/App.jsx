@@ -9,6 +9,9 @@ import Journey from './components/Journey';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
+import CurrentlyStrip from './components/CurrentlyStrip';
+import Marquee from './components/Marquee';
+import PageTools from './components/PageTools';
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,8 +20,9 @@ export default function App() {
   return <>
     <a className="skip-link" href="#main-content">Skip to content</a>
     <CustomCursor />
+    <PageTools navigateTo={navigateTo} />
     <Navbar menuOpen={menuOpen} onToggle={() => setMenuOpen((v) => !v)} navigateTo={navigateTo} />
-    <main id="main-content"><Hero navigateTo={navigateTo} /><About /><Projects /><TechStack /><Journey /><Contact /></main>
+    <main id="main-content"><Hero navigateTo={navigateTo} /><About /><CurrentlyStrip /><Marquee /><Projects /><TechStack /><Journey /><Contact /></main>
     <Footer navigateTo={navigateTo} />
   </>;
 }

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap');
-:root { --bg:#070707; --bg-secondary:#0b0b0b; --surface:#101010; --text:#f1f1ed; --text-secondary:#909090; --text-muted:#555; --border:#242424; --accent:#c6ff00; --sans:'Manrope',Arial,sans-serif; --mono:'DM Mono',Consolas,monospace; font-family:var(--sans); color:var(--text); background:var(--bg); font-synthesis:none; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
+:root { --bg:#f2f6f2; --bg-secondary:#eaf1eb; --surface:#f8faf8; --text:#142018; --text-secondary:#5f6c63; --text-muted:#879189; --border:rgba(20,45,28,.12); --accent:#16a34a; --accent-cyan:#22c55e; --accent-blue:#16a34a; --accent-deep:#15803d; --sans:'Manrope',Arial,sans-serif; --mono:'DM Mono',Consolas,monospace; font-family:var(--sans); color:var(--text); background:var(--bg); font-synthesis:none; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; background:var(--bg); }
 body { margin:0; min-width:320px; overflow-x:hidden; background:var(--bg); }
@@ -7,5 +7,5 @@ body.menu-open { overflow:hidden; }
 button,a { font:inherit; } button { color:inherit; } a { color:inherit; }
 ::selection { color:#070707; background:var(--accent); }
 :focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
-@media (pointer:fine) { body,a,button { cursor:none; } }
+@media (pointer:fine) { body,body a,body button { cursor:auto; } }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
