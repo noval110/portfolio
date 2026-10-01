@@ -1,6 +1,7 @@
 import microSayurPreview from '../assets/projects/micro-sayur.png';
 import hydroTechPreview from '../assets/projects/hydro-tech.png';
-import codingPreview from '../assets/coding.jpeg';
+import skillMatchPreview from '../assets/projects/skillmatch.png';
+import footGuardPreview from '../assets/projects/footguard-ai.png';
 
 export const projects = [
   {
@@ -27,13 +28,24 @@ export const projects = [
   },
   {
     id: 3,
-    title: 'Code Experiments',
-    category: 'Learning Archive',
-    description: 'A growing collection of university work and small experiments made while learning software development.',
-    tech: ['Go', 'PHP', 'JavaScript'],
-    image: codingPreview,
-    github: 'https://github.com/noval110',
-    live: null,
-    theme: 'graphite',
+    title: 'SkillMatch',
+    category: 'Competition Team Matching',
+    description: 'A platform for finding competition teammates based on skills, roles, interests, experience level, and compatibility.',
+    tech: ['JavaScript', 'React'],
+    image: skillMatchPreview,
+    github: 'https://github.com/noval110/skillmatch',
+    live: 'https://skillmatch-noval7.vercel.app/',
+    theme: 'skillmatch',
+  },
+  {
+    id: 4,
+    title: 'FootGuard AI',
+    category: 'AI / Healthcare',
+    description: 'An AI-assisted platform for diabetic foot screening and monitoring, with wound classification, segmentation, risk assessment, and healthcare provider review.',
+    tech: ['React', 'Go', 'FastAPI', 'PyTorch', 'PostgreSQL'],
+    image: footGuardPreview,
+    github: 'https://github.com/noval110/footguard-AI',
+    live: 'https://footguard-ai.vercel.app/',
+    theme: 'footguard',
   },
 ];

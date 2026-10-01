@@ -1,4 +1,43 @@
-import { motion } from 'framer-motion';import { ArrowUpRight } from 'lucide-react';
-const InterfaceVisual=({index})=><div className={`interface-visual interface-${index}`} aria-hidden="true"><div className="browser-bar"><i/><i/><i/><span>CONCEPT VISUAL / PROJECT PREVIEW</span></div><div className="ui-shell"><aside><b>N.</b>{[1,2,3,4].map(n=><i key={n}/>)}</aside><main><header><span>PROJECT / 0{index+1}</span><i/></header><div className="ui-hero"><strong>{index===0?'COMMERCE':index===1?'DIGITAL':'LAB / CODE'}</strong><p>Thoughtful interfaces<br/>built through exploration.</p></div><div className="ui-blocks"><i/><i/><i/></div></main></div></div>;
-const LabVisual=({src})=><div className="lab-visual"><div className="lab-browser mono"><span><i/><i/><i/></span><b>CONCEPT VISUAL / PROJECT PREVIEW</b></div><div className="lab-canvas"><aside aria-hidden="true"><strong>N.</strong>{[1,2,3,4].map(n=><i key={n}/>)}</aside><img src={src} alt="Go backend development workspace" loading="lazy"/><div className="lab-overlay"><span className="mono">PROJECT / 03</span><strong>LAB / CODE</strong><p>Experiments, Learning, Building.</p><div className="lab-tags mono"><i>GO</i><i>API</i><i>DATABASE</i></div></div></div></div>;
-export default function ProjectCard({project,index}){const number=String(project.id).padStart(2,'0'),href=project.live||project.github,VisualTag=href?'a':'div';const spotlight=e=>{const r=e.currentTarget.getBoundingClientRect();e.currentTarget.style.setProperty('--spot-x',`${e.clientX-r.left}px`);e.currentTarget.style.setProperty('--spot-y',`${e.clientY-r.top}px`)};return <motion.article onPointerMove={spotlight} className={`project project-${index+1}`} initial={{clipPath:'inset(0 0 12% 0)',opacity:.2}} whileInView={{clipPath:'inset(0)',opacity:1}} viewport={{once:true,amount:.1}} transition={{duration:.8,ease:[.22,1,.36,1]}}><VisualTag data-cursor={href?'project':''} className={`project-preview theme-${project.theme}`} {...(href?{href,target:'_blank',rel:'noreferrer','aria-label':`View ${project.title}`}:{})}>{project.theme==='graphite'?<LabVisual src={project.image}/>:project.image?<img src={project.image} alt={`${project.title} preview`} loading="lazy"/>:<InterfaceVisual index={index}/>}<span className="project-category mono">{project.category}</span>{href&&<span className="project-arrow"><ArrowUpRight/></span>}</VisualTag><div className="project-info"><div><p className="project-number mono">{number} / 2026</p><h3>{project.title}</h3></div><p className="project-description">{project.description}</p><div className="project-meta"><div className="project-stack mono">{project.tech.map(tech=><span key={tech}>{tech}</span>)}</div>{project.live&&<a href={project.live} target="_blank" rel="noreferrer">Live demo <ArrowUpRight size={14}/></a>}{project.github&&<a href={project.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14}/></a>}</div></div></motion.article>}
+import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+
+export default function ProjectCard({ project }) {
+  const number = String(project.id).padStart(2, '0');
+  const href = project.live || project.github;
+  const VisualTag = href ? 'a' : 'div';
+  const spotlight = e => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--spot-x', `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty('--spot-y', `${e.clientY - r.top}px`);
+  };
+
+  return (
+    <motion.article
+      onPointerMove={spotlight}
+      className="project"
+      initial={{ clipPath: 'inset(0 0 12% 0)', opacity: .2 }}
+      whileInView={{ clipPath: 'inset(0)', opacity: 1 }}
+      viewport={{ once: true, amount: .1 }}
+      transition={{ duration: .8, ease: [.22, 1, .36, 1] }}
+    >
+      <VisualTag
+        data-cursor={href ? 'project' : ''}
+        className={`project-preview theme-${project.theme}`}
+        {...(href ? { href, target: '_blank', rel: 'noreferrer', 'aria-label': `View ${project.title}` } : {})}
+      >
+        <img src={project.image} alt={`${project.title} website preview`} loading="lazy"/>
+        <span className="project-category mono">{project.category}</span>
+        {href && <span className="project-arrow"><ArrowUpRight/></span>}
+      </VisualTag>
+      <div className="project-info">
+        <div><p className="project-number mono">{number} / 2026</p><h3>{project.title}</h3></div>
+        <p className="project-description">{project.description}</p>
+        <div className="project-meta">
+          <div className="project-stack mono">{project.tech.map(tech => <span key={tech}>{tech}</span>)}</div>
+          {project.live && <a href={project.live} target="_blank" rel="noreferrer">Live demo <ArrowUpRight size={14}/></a>}
+          {project.github && <a href={project.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14}/></a>}
+        </div>
+      </div>
+    </motion.article>
+  );
+}
