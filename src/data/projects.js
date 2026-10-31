@@ -3,6 +3,7 @@ import hydroTechPreview from '../assets/projects/hydro-tech.png';
 import skillMatchPreview from '../assets/projects/skillmatch.png';
 import footGuardPreview from '../assets/projects/footguard-ai.png';
 
+// `palette` mirrors each project's own brand so the cards feel like the products they show.
 export const projects = [
   {
     id: 1,
@@ -13,7 +14,7 @@ export const projects = [
     image: microSayurPreview,
     github: 'https://github.com/noval110/micro-sayur',
     live: 'https://micro-sayur.vercel.app/',
-    theme: 'vegetable',
+    palette: { surface: '#e6f1df', ink: '#13240f', accent: '#1f9d3a' },
   },
   {
     id: 2,
@@ -24,7 +25,7 @@ export const projects = [
     image: hydroTechPreview,
     github: 'https://github.com/noval110/hydro-tech-landing',
     live: 'https://agrissmart.netlify.app/',
-    theme: 'hydro',
+    palette: { surface: '#0f2a1e', ink: '#e4f1e8', accent: '#46d887' },
   },
   {
     id: 3,
@@ -35,7 +36,7 @@ export const projects = [
     image: skillMatchPreview,
     github: 'https://github.com/noval110/skillmatch',
     live: 'https://skillmatch-noval7.vercel.app/',
-    theme: 'skillmatch',
+    palette: { surface: '#18161b', ink: '#f3eeee', accent: '#e8546a' },
   },
   {
     id: 4,
@@ -46,6 +47,6 @@ export const projects = [
     image: footGuardPreview,
     github: 'https://github.com/noval110/footguard-AI',
     live: 'https://footguard-ai.vercel.app/',
-    theme: 'footguard',
+    palette: { surface: '#f4eaed', ink: '#2a1018', accent: '#8a2f4d' },
   },
 ];

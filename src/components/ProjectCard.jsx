@@ -1,43 +1,71 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
 
-export default function ProjectCard({ project }) {
-  const number = String(project.id).padStart(2, '0');
-  const href = project.live || project.github;
-  const VisualTag = href ? 'a' : 'div';
-  const spotlight = e => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty('--spot-x', `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty('--spot-y', `${e.clientY - r.top}px`);
-  };
+export default function ProjectCard({ project, index, total, progress }) {
+  const reduce = useReducedMotion();
+  // Earlier cards shrink more as later ones slide over them, so the pile reads as layered.
+  const scale = useTransform(progress, [index / total, 1], [1, 1 - (total - index - 1) * 0.035]);
+  const number = String(index + 1).padStart(2, '0');
+  const domain = new URL(project.live).hostname;
+  const { surface, ink, accent } = project.palette;
 
   return (
-    <motion.article
-      onPointerMove={spotlight}
-      className="project"
-      initial={{ clipPath: 'inset(0 0 12% 0)', opacity: .2 }}
-      whileInView={{ clipPath: 'inset(0)', opacity: 1 }}
-      viewport={{ once: true, amount: .1 }}
-      transition={{ duration: .8, ease: [.22, 1, .36, 1] }}
-    >
-      <VisualTag
-        data-cursor={href ? 'project' : ''}
-        className={`project-preview theme-${project.theme}`}
-        {...(href ? { href, target: '_blank', rel: 'noreferrer', 'aria-label': `View ${project.title}` } : {})}
+    <div className="card-slot" style={{ '--i': index }}>
+      <motion.article
+        className="card"
+        style={{ scale: reduce ? 1 : scale, '--surface': surface, '--card-ink': ink, '--card-accent': accent }}
+        aria-labelledby={`project-${project.id}`}
       >
-        <img src={project.image} alt={`${project.title} website preview`} loading="lazy"/>
-        <span className="project-category mono">{project.category}</span>
-        {href && <span className="project-arrow"><ArrowUpRight/></span>}
-      </VisualTag>
-      <div className="project-info">
-        <div><p className="project-number mono">{number} / 2026</p><h3>{project.title}</h3></div>
-        <p className="project-description">{project.description}</p>
-        <div className="project-meta">
-          <div className="project-stack mono">{project.tech.map(tech => <span key={tech}>{tech}</span>)}</div>
-          {project.live && <a href={project.live} target="_blank" rel="noreferrer">Live demo <ArrowUpRight size={14}/></a>}
-          {project.github && <a href={project.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14}/></a>}
+        <div className="card-info">
+          <div className="card-top mono">
+            <span>{number} / {String(total).padStart(2, '0')}</span>
+            <span>{project.category}</span>
+          </div>
+          <h3 id={`project-${project.id}`}>{project.title}</h3>
+          <p className="card-desc">{project.description}</p>
+          <ul className="card-tech mono" aria-label="Built with">
+            {project.tech.map((tech) => <li key={tech}>{tech}</li>)}
+          </ul>
+          <div className="card-links">
+            <a className="card-cta" href={project.live} target="_blank" rel="noreferrer">
+              Visit site <ArrowUpRight size={16} />
+            </a>
+            <a className="card-source" href={project.github} target="_blank" rel="noreferrer">
+              <FaGithub size={15} /> Source
+            </a>
+          </div>
         </div>
-      </div>
-    </motion.article>
+        <a
+          className="card-shot"
+          href={project.live}
+          target="_blank"
+          rel="noreferrer"
+          tabIndex={-1}
+          aria-hidden="true"
+          data-cursor="Visit ↗"
+        >
+          <div className="browser">
+            <div className="browser-bar">
+              <i /><i /><i />
+              <span className="mono">{domain}</span>
+            </div>
+            <div className="browser-view">
+              <div className="browser-zoom">
+                <motion.img
+                  src={project.image}
+                  alt=""
+                  loading="lazy"
+                  initial={{ scale: 1.18, filter: 'blur(8px)' }}
+                  whileInView={{ scale: 1, filter: 'blur(0px)' }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </div>
+            </div>
+          </div>
+        </a>
+      </motion.article>
+    </div>
   );
 }

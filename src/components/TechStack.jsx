@@ -1,4 +1,65 @@
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import { technologies } from '../data/technologies';
-export default function TechStack(){return <section className="stack section" id="stack" aria-labelledby="stack-title"><div className="section-header mono"><p>04 / STACK</p><span>{String(technologies.length).padStart(2,'0')} TECHNOLOGIES</span></div><div className="stack-intro"><div><p className="muted-label mono">TOOLS &amp; TECHNOLOGIES</p><h2 id="stack-title">THINGS I<br/>WORK WITH.</h2></div><div className="stack-aside"><p>Tools I use to turn ideas into responsive, useful digital products.</p><pre aria-label="Current focus">{`const focus = [\n  "React", "Go",\n  "JavaScript"\n];`}</pre></div></div><div className="tech-matrix">{technologies.map(({name,category,Icon,color},index)=><motion.article className="tech-cell" style={{'--brand':color}} key={name} initial={{opacity:0,scale:.97}} whileInView={{opacity:1,scale:1}} viewport={{once:true,amount:.2}} transition={{duration:.45,delay:index*.035,ease:[.22,1,.36,1]}}><span className="tech-number mono">{String(index+1).padStart(2,'0')}</span><Icon className="tech-icon" aria-hidden="true"/><div><h3>{name}</h3><p className="mono">{category}</p></div><ArrowUpRight className="tech-arrow" size={17}/></motion.article>)}</div></section>}
+import { useState } from 'react';
+import { stackGroups } from '../data/technologies';
+import { projects } from '../data/projects';
+
+const usedIn = (item) => projects.filter((p) => p.tech.some((t) => (item.match || [item.name]).includes(t)));
+
+export default function TechStack() {
+  const [hovered, setHovered] = useState(null);
+
+  return (
+    <section className="stack" id="stack" aria-labelledby="stack-title">
+      <div className="section-head">
+        <p className="eyebrow mono">(03) Stack</p>
+        <h2 id="stack-title">
+          What I reach for, <em>and where.</em>
+        </h2>
+        <p className="section-note">
+          Each dot is a project above that uses the tool. No skill bars, just receipts.
+        </p>
+      </div>
+
+      <ul className="stack-legend mono" aria-label="Projects">
+        {projects.map((p) => (
+          <li
+            key={p.id}
+            style={{ '--dot': p.palette.accent }}
+            className={hovered && !hovered.includes(p.id) ? 'is-dim' : ''}
+          >
+            <i aria-hidden="true" />{p.title}
+          </li>
+        ))}
+      </ul>
+
+      <div className="stack-groups">
+        {stackGroups.map((group) => (
+          <div className="stack-group" key={group.label}>
+            <h3 className="mono">{group.label}</h3>
+            <ul>
+              {group.items.map((item) => {
+                const used = usedIn(item);
+                const { Icon } = item;
+                return (
+                  <li
+                    key={item.name}
+                    onPointerEnter={() => setHovered(used.map((p) => p.id))}
+                    onPointerLeave={() => setHovered(null)}
+                  >
+                    <Icon className="stack-icon" aria-hidden="true" />
+                    <span className="stack-name">{item.name}</span>
+                    <span
+                      className="stack-dots"
+                      aria-label={used.length ? `Used in ${used.map((p) => p.title).join(', ')}` : 'Used outside these projects'}
+                    >
+                      {used.map((p) => <i key={p.id} style={{ background: p.palette.accent }} />)}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}

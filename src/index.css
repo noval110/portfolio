@@ -1,11 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap');
-:root { --bg:#f2f6f2; --bg-secondary:#eaf1eb; --surface:#f8faf8; --text:#142018; --text-secondary:#5f6c63; --text-muted:#879189; --border:rgba(20,45,28,.12); --accent:#16a34a; --accent-cyan:#22c55e; --accent-blue:#16a34a; --accent-deep:#15803d; --sans:'Manrope',Arial,sans-serif; --mono:'DM Mono',Consolas,monospace; font-family:var(--sans); color:var(--text); background:var(--bg); font-synthesis:none; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; background:var(--bg); }
-body { margin:0; min-width:320px; overflow-x:hidden; background:var(--bg); }
-body.menu-open { overflow:hidden; }
-button,a { font:inherit; } button { color:inherit; } a { color:inherit; }
-::selection { color:#070707; background:var(--accent); }
-:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
-@media (pointer:fine) { body,body a,body button { cursor:auto; } }
-@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
+:root {
+  --paper: #f2ede3;
+  --paper-2: #e8e1d3;
+  --ink: #15151c;
+  --ink-2: #3a3a45;
+  --cobalt: #2c3be0;
+  --butter: #ffd43b;
+  --muted: #747067;
+  --line: rgba(18, 18, 16, .14);
+  --line-light: rgba(242, 237, 227, .18);
+  /* --accent is re-pointed per section so highlights always contrast with the background. */
+  --accent: var(--cobalt);
+  --display: 'Bricolage Grotesque', 'Arial Narrow', Arial, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --gutter: clamp(16px, 4vw, 56px);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  font-family: var(--display);
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+body { margin: 0; min-width: 320px; overflow-x: clip; background: var(--paper); font-size: 16px; line-height: 1.5; }
+body.menu-open { overflow: hidden; }
+/* Paper grain — fixed so it doesn't repaint on scroll. */
+body::after { content: ''; position: fixed; inset: 0; z-index: 999; pointer-events: none; opacity: .06; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+h1, h2, h3, p, figure, dl, dd, ol, ul { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; }
+button, a { font: inherit; color: inherit; }
+button { cursor: pointer; }
+::selection { color: var(--ink); background: var(--butter); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
